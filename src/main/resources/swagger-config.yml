@@ -1,0 +1,7 @@
+swagger:
+  api:
+    base-package: com.neurotech.modalidades_credito.controller
+    info:
+      title: API de Modalidades de Crédito
+      description: API para controlar as modalidades de crédito.
+      version: 1.0.0
