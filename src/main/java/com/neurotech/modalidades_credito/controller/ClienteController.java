@@ -63,7 +63,7 @@ public class ClienteController {
 
         boolean apto = clienteService.isAptoCreditoAutomotivoHatch(cliente);
         return apto ? ResponseEntity.ok("Apto para crédito automotivo - Hatch")
-                    : ResponseEntity.status(HttpStatus.FORBIDDEN).body("Não apto para crédito automotivo - Hatch");
+                : ResponseEntity.status(HttpStatus.FORBIDDEN).body("Não apto para crédito automotivo - Hatch");
     }
 
     @PostMapping("/{id}/credito-suv")
@@ -76,16 +76,16 @@ public class ClienteController {
 
         boolean apto = clienteService.isAptoCreditoAutomotivoSUV(cliente);
         return apto ? ResponseEntity.ok("Apto para crédito automotivo - SUV")
-                    : ResponseEntity.status(HttpStatus.FORBIDDEN).body("Não apto para crédito automotivo - SUV");
+                : ResponseEntity.status(HttpStatus.FORBIDDEN).body("Não apto para crédito automotivo - SUV");
     }
 
     @GetMapping("/credito-fixo-hatch")
     @ApiOperation(value = "Clientes aptos a crédito fixo e crédito Hatch")
     public ResponseEntity<List<String>> clientesCreditoFixoHatch() {
         List<String> clientesAptos = clienteRepository.findAll().values().stream()
-                .filter(cliente -> clienteService.isCreditoComJurosFixos(cliente) &&
-                        clienteService.isAptoCreditoAutomotivoHatch(cliente) &&
-                        cliente.getAge() >= 23 && cliente.getAge() <= 49)
+                .filter(cliente -> clienteService.isCreditoComJurosFixos(cliente)
+                && clienteService.isAptoCreditoAutomotivoHatch(cliente)
+                && cliente.getAge() >= 23 && cliente.getAge() <= 49)
                 .map(cliente -> "Nome: " + cliente.getName() + ", Renda: " + cliente.getIncome())
                 .collect(Collectors.toList());
 
