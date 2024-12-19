@@ -1,9 +1,12 @@
 package com.neurotech.modalidades_credito.controller;
 
 import java.net.URI;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.boot.autoconfigure.integration.IntegrationProperties.RSocket.Client;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,9 +23,9 @@ import com.neurotech.modalidades_credito.service.ClienteService;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping("/api/modalidades-credito")
+@RequestMapping("/api")
 public class ClienteController {
-
+    String LOCATION = "http://localhost:8080/api/client/";
     private final ClienteService clienteService;
     private final ClienteRepository clienteRepository;
 
@@ -31,19 +34,19 @@ public class ClienteController {
         this.clienteRepository = clienteRepository;
     }
 
-    @PostMapping
+    @PostMapping("/client")
     @ApiOperation(value = "Cadastrar cliente", response = Cliente.class)
-    public ResponseEntity<Void> cadastrarCliente(@RequestBody Cliente cliente) {
+    public ResponseEntity<Cliente> cadastrarCliente(@RequestBody Cliente cliente) {
         String id = String.valueOf(clienteRepository.findAll().size() + 1);
+        HttpHeaders responseHeaders = new HttpHeaders();
+            
         clienteRepository.save(id, cliente);
-
-        return ResponseEntity
-                .created(URI.create("/api/modalidades-credito/" + id))
-                .header("Location", "/api/modalidades-credito/" + id)
-                .build();
+        responseHeaders.set("Location",LOCATION + id  );
+        return ResponseEntity.ok().headers(responseHeaders).body(cliente);
+          
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/client/{id}")
     @ApiOperation(value = "Retornar dados do cliente", response = Cliente.class)
     public ResponseEntity<Cliente> obterCliente(@PathVariable String id) {
         Cliente cliente = clienteRepository.findById(id);
@@ -53,7 +56,7 @@ public class ClienteController {
         return ResponseEntity.ok(cliente);
     }
 
-    @PostMapping("/{id}/credito-hatch")
+    @PostMapping("/client/{id}/credito-hatch")
     @ApiOperation(value = "Verificar elegibilidade para crédito automotivo - Hatch")
     public ResponseEntity<String> verificarCreditoHatch(@PathVariable String id) {
         Cliente cliente = clienteRepository.findById(id);
@@ -66,7 +69,7 @@ public class ClienteController {
                 : ResponseEntity.status(HttpStatus.FORBIDDEN).body("Não apto para crédito automotivo - Hatch");
     }
 
-    @PostMapping("/{id}/credito-suv")
+    @PostMapping("/client/{id}/credito-suv")
     @ApiOperation(value = "Verificar elegibilidade para crédito automotivo - SUV")
     public ResponseEntity<String> verificarCreditoSUV(@PathVariable String id) {
         Cliente cliente = clienteRepository.findById(id);
