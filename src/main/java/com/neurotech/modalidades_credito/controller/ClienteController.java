@@ -85,8 +85,8 @@ public class ClienteController {
         List<String> clientesAptos = clienteRepository.findAll().values().stream()
                 .filter(cliente -> clienteService.isCreditoComJurosFixos(cliente)
                 && clienteService.isAptoCreditoAutomotivoHatch(cliente)
-                && cliente.getAge() >= 23 && cliente.getAge() <= 49)
-                .map(cliente -> "Nome: " + cliente.getName() + ", Renda: " + cliente.getIncome())
+                && cliente.getIdade() >= 23 && cliente.getIdade() <= 49)
+                .map(cliente -> "Nome: " + cliente.getNome() + ", Renda: " + cliente.getRenda())
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(clientesAptos);

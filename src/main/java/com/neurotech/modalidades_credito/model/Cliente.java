@@ -1,38 +1,38 @@
 package com.neurotech.modalidades_credito.model;
 
 public class Cliente {
-    private String name;
-    private int age;
-    private double income;
+    private String nome;
+    private int idade;
+    private double renda;
 
-    // Construtores, Getters e Setters
-    public Cliente(String name, int age, double income) {
-        this.name = name;
-        this.age = age;
-        this.income = income;
+ 
+    public Cliente(String nome, int idade, double renda) {
+        this.nome = nome;
+        this.idade = idade;
+        this.renda = renda;
     }
 
-    public String getName() {
-        return name;
+    public String getNome() {
+        return nome;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public int getAge() {
-        return age;
+    public int getIdade() {
+        return idade;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setIdade(int idade) {
+        this.idade = idade;
     }
 
-    public double getIncome() {
-        return income;
+    public double getRenda() {
+        return renda;
     }
 
-    public void setIncome(double income) {
-        this.income = income;
+    public void setRenda(double renda) {
+        this.renda = renda;
     }
 }

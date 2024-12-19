@@ -8,22 +8,22 @@ import com.neurotech.modalidades_credito.model.Cliente;
 public class ClienteService {
 
     public boolean isCreditoComJurosFixos(Cliente cliente) {
-        return cliente.getAge() >= 18 && cliente.getAge() <= 25;
+        return cliente.getIdade() >= 18 && cliente.getIdade() <= 25;
     }
 
     public boolean isCreditoComJurosVariaveis(Cliente cliente) {
-        return cliente.getAge() >= 21 && cliente.getAge() <= 65 && cliente.getIncome() >= 5000 && cliente.getIncome() <= 15000;
+        return cliente.getIdade() >= 21 && cliente.getIdade() <= 65 && cliente.getRenda() >= 5000 && cliente.getRenda() <= 15000;
     }
 
     public boolean isCreditoConsignado(Cliente cliente) {
-        return cliente.getAge() > 65;
+        return cliente.getIdade() > 65;
     }
 
     public boolean isAptoCreditoAutomotivoHatch(Cliente cliente) {
-        return cliente.getIncome() >= 5000 && cliente.getIncome() <= 15000;
+        return cliente.getRenda() >= 5000 && cliente.getRenda() <= 15000;
     }
 
     public boolean isAptoCreditoAutomotivoSUV(Cliente cliente) {
-        return cliente.getIncome() > 8000 && cliente.getAge() > 20;
+        return cliente.getRenda() > 8000 && cliente.getIdade() > 20;
     }
 }
